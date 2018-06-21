@@ -1,0 +1,17 @@
+---
+
+- name: Install atom dependencies
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - gconf2
+    - gconf-service
+    - libnotify4
+    - libnss3
+    - python
+    - gvfs-bin
+    - libxkbfile1
+  become: yes
+
+# (failed reverse-i-search)`wgey': wget https://atom.io/download/deb

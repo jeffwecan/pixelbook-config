@@ -1,0 +1,5 @@
+---
+all:
+  hosts:
+    pixelbook:
+      ansible_connection: local

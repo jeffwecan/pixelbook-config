@@ -1,0 +1,38 @@
+---
+
+- name: Ensure all packages are up to-date
+  apt:
+    upgrade: dist
+    update_cache: yes
+    cache_valid_time: "{{ cache_valid_time }}"
+  become: yes
+
+
+- name: Install man
+  apt:
+    name: man
+    update_cache: yes
+    cache_valid_time: "{{ cache_valid_time }}"
+  become: yes
+
+- name: Install zeal documentation viewer
+  apt:
+    name: zeal
+    update_cache: yes
+    cache_valid_time: "{{ cache_valid_time }}"
+  become: yes
+
+- name: Copy .bash_profile to  ~/.bash_profile
+  copy:
+    src: home/user/.bash_profile
+    dest: "{{ ansible_env.HOME }}/.bash_profile"
+
+- name: Ensure ~/.local/share/applications/ directory
+  file:
+    dest: "{{ ansible_env.HOME }}/.local/share/applications"
+    state: directory
+
+- name: Copy zeal.desktop to ~/.local/share/applications/
+  copy:
+    src: home/user/.local/share/applications/zeal.desktop
+    dest: "{{ ansible_env.HOME }}/.local/share/applications/zeal.desktop"
