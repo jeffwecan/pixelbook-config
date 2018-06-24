@@ -7,4 +7,4 @@
       - man
   roles:
     - setup
-    - jetbrains
+    - developer_tools
