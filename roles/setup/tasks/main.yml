@@ -14,6 +14,17 @@
     cache_valid_time: "{{ cache_valid_time }}"
   become: yes
 
+- name: Install powerline-shell pip package for fancy PS1 prompt
+  pip:
+    name: powerline-shell
+    state: present
+  become: yes
+
+- name: Copy powerline-shell config.json to ~/.config/powerline-shell/config.json
+  copy:
+    src: home/user/.config/powerline-shell/config.json
+    dest: "{{ ansible_env.HOME }}/.config/powerline-shell/config.json"
+
 - name: Copy .bash_profile to  ~/.bash_profile
   copy:
     src: home/user/.bash_profile
@@ -45,4 +56,4 @@
   git_config:
     name: core.excludesfile
     scope: global
-    value: "~/.gitignore_global"
+    value: "{{ ansible_env.HOME }}/.gitignore_global"
