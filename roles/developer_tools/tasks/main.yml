@@ -65,20 +65,8 @@
     checksum: sha256:acc72d39be7110a8c5e54fb18a78a7e7bd86316754056bd0a0e92df59d51b796
   become: yes
 
-- name: Install tclone deb package
+- name: Install rclone deb package
   apt:
     deb: /var/cache/apt/archives/rclone.deb
     state: present
-  become: yes
-
-- name: Remove overgrive deb package download
-  file:
-    dest: /var/cache/apt/archives/overgrive.deb
-    state: absent
-  become: yes
-
-- name: Remove overgrive deb package
-  apt:
-    name: overgrive
-    state: absent
   become: yes
