@@ -24,3 +24,25 @@
     dest: "{{ ansible_env.HOME }}/.local/share/applications"
     state: directory
 
+- name: Copy ".gitignore_global" to home directory
+  copy:
+    src: home/user/.gitignore_global
+    dest: "{{ ansible_env.HOME }}/.gitignore_global"
+
+- name: Set up user.name global git config entry
+  git_config:
+    name: user.name
+    scope: global
+    value: "{{ git_user_name }}"
+
+- name: Set up user.email global git config entry
+  git_config:
+    name: user.email
+    scope: global
+    value: "{{ git_user_email }}"
+
+- name: Set up core.excludesfile global git config entry
+  git_config:
+    name: core.excludesfile
+    scope: global
+    value: "~/.gitignore_global"

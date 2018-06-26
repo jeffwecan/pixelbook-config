@@ -1,3 +1,6 @@
 ---
 
 cache_valid_time: 3600
+git_user_name: Jeffrey Hogan
+git_user_email: jeff.hogan1@gmail.com
+#global_gitignore_file_path: ~/.gitignore_global
