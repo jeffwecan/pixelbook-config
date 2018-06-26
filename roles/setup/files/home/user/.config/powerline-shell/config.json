@@ -1,0 +1,19 @@
+{
+  "segments": [
+    "virtual_env",
+    "username",
+    "hostname",
+    "ssh",
+    "cwd",
+    "git",
+    "root"
+  ],
+  "mode": "flat",
+  "cwd": {
+      "mode": "plain"
+  },
+  "vcs": {
+    "show_symbol": false
+  },
+  "theme": "basic"
+}

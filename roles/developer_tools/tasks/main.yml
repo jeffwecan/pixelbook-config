@@ -1,0 +1,72 @@
+---
+
+- name: Install atom dependencies
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - gconf2
+    - gconf-service
+    - libnotify4
+    - libnss3
+    - python
+    - gvfs-bin
+    - libxkbfile1
+  become: yes
+
+# (failed reverse-i-search)`wgey': wget https://atom.io/download/deb
+
+#https://www.thefanclub.co.za/sites/default/files/public/overgrive/overgrive_3.2.3_all.deb&nid=168
+
+- name: Add packagecloud / AtomEditor apt signing key
+  apt_key:
+    id: B75442BBDE9E3B09
+    url: https://packagecloud.io/AtomEditor/atom/gpgkey
+    state: present
+  become: yes
+
+- apt_repository:
+    repo: deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main
+    state: present
+    filename: packagecloud_atom_editor
+  register: ensure_atom_apt_repository
+  become: yes
+
+- name: Refresh apt cache after adding atom repository
+  apt:
+    update_cache: yes
+  when: ensure_atom_apt_repository.changed
+  become: yes
+
+- name: Install atom deb
+  apt:
+    name: atom
+    update_cache: yes
+    cache_valid_time: "{{ cache_valid_time }}"
+  become: yes
+
+- name: Install zeal documentation viewer
+  apt:
+    name: zeal
+    update_cache: yes
+    cache_valid_time: "{{ cache_valid_time }}"
+  become: yes
+
+
+- name: Copy zeal.desktop to ~/.local/share/applications/
+  copy:
+    src: home/user/.local/share/applications/zeal.desktop
+    dest: "{{ ansible_env.HOME }}/.local/share/applications/zeal.desktop"
+
+- name: Download rclone deb package
+  get_url:
+    url: https://downloads.rclone.org/rclone-current-linux-amd64.deb
+    dest: /var/cache/apt/archives/rclone.deb
+    checksum: sha256:acc72d39be7110a8c5e54fb18a78a7e7bd86316754056bd0a0e92df59d51b796
+  become: yes
+
+- name: Install rclone deb package
+  apt:
+    deb: /var/cache/apt/archives/rclone.deb
+    state: present
+  become: yes

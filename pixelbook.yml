@@ -1,0 +1,10 @@
+---
+
+- hosts: pixelbook
+  vars:
+    cache_valid_time: 3600
+    additional_packages:
+      - man
+  roles:
+    - { name: setup, tags: role_setup }
+    - { name: developer_tools, tags: role_developer_tools }

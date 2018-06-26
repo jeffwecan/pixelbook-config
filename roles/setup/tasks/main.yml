@@ -1,0 +1,59 @@
+---
+
+- name: Ensure all packages are up to-date
+  apt:
+    upgrade: dist
+    update_cache: yes
+    cache_valid_time: "{{ cache_valid_time }}"
+  become: yes
+
+- name: Install man
+  apt:
+    name: man
+    update_cache: yes
+    cache_valid_time: "{{ cache_valid_time }}"
+  become: yes
+
+- name: Install powerline-shell pip package for fancy PS1 prompt
+  pip:
+    name: powerline-shell
+    state: present
+  become: yes
+
+- name: Copy powerline-shell config.json to ~/.config/powerline-shell/config.json
+  copy:
+    src: home/user/.config/powerline-shell/config.json
+    dest: "{{ ansible_env.HOME }}/.config/powerline-shell/config.json"
+
+- name: Copy .bash_profile to  ~/.bash_profile
+  copy:
+    src: home/user/.bash_profile
+    dest: "{{ ansible_env.HOME }}/.bash_profile"
+
+- name: Ensure ~/.local/share/applications/ directory
+  file:
+    dest: "{{ ansible_env.HOME }}/.local/share/applications"
+    state: directory
+
+- name: Copy ".gitignore_global" to home directory
+  copy:
+    src: home/user/.gitignore_global
+    dest: "{{ ansible_env.HOME }}/.gitignore_global"
+
+- name: Set up user.name global git config entry
+  git_config:
+    name: user.name
+    scope: global
+    value: "{{ git_user_name }}"
+
+- name: Set up user.email global git config entry
+  git_config:
+    name: user.email
+    scope: global
+    value: "{{ git_user_email }}"
+
+- name: Set up core.excludesfile global git config entry
+  git_config:
+    name: core.excludesfile
+    scope: global
+    value: "{{ ansible_env.HOME }}/.gitignore_global"
