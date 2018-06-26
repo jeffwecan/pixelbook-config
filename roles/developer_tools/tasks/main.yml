@@ -58,18 +58,27 @@
     src: home/user/.local/share/applications/zeal.desktop
     dest: "{{ ansible_env.HOME }}/.local/share/applications/zeal.desktop"
 
-- name: Download overgrive deb package
+- name: Download rclone deb package
   get_url:
-    url: https://www.thefanclub.co.za/sites/default/files/public/overgrive/overgrive_3.2.3_all.deb
-    dest: /var/cache/apt/archives/overgrive.deb
-    checksum: sha256:e187a5a0af1cbfe88b4b71290f6e86c75379789967f51f7919fed376184c60cf
+    url: https://downloads.rclone.org/rclone-current-linux-amd64.deb
+    dest: /var/cache/apt/archives/rclone.deb
+    checksum: sha256:acc72d39be7110a8c5e54fb18a78a7e7bd86316754056bd0a0e92df59d51b796
   become: yes
 
-- name: Install overgrive deb package
+- name: Install tclone deb package
   apt:
-    deb: /var/cache/apt/archives/overgrive.deb
+    deb: /var/cache/apt/archives/rclone.deb
     state: present
   become: yes
 
-# Install overgrive dependencies?
-# pip install oauth2client
+- name: Remove overgrive deb package download
+  file:
+    dest: /var/cache/apt/archives/overgrive.deb
+    state: absent
+  become: yes
+
+- name: Remove overgrive deb package
+  apt:
+    name: overgrive
+    state: absent
+  become: yes
