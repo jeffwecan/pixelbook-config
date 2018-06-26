@@ -8,5 +8,12 @@
     "git",
     "root"
   ],
-  "mode": "flat"
+  "mode": "flat",
+  "cwd": {
+      "mode": "plain"
+  },
+  "vcs": {
+    "show_symbol": false
+  },
+  "theme": "basic"
 }
