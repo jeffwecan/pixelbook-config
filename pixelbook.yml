@@ -6,5 +6,5 @@
     additional_packages:
       - man
   roles:
-    - setup
-    - developer_tools
+    - { name: setup, tags: role_setup }
+    - { name: developer_tools, tags: role_developer_tools }
