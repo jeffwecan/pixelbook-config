@@ -4,30 +4,26 @@
   apt:
     upgrade: dist
     update_cache: yes
-    cache_valid_time: "{{ cache_valid_time }}"
+    cache_valid_time: "{{ apt_cache_valid_time }}"
   become: yes
 
-- name: Install man
+- name: Install standard GNU/Linux utilities
   apt:
-    name: man
+    name: "{{ item }}"
     update_cache: yes
-    cache_valid_time: "{{ cache_valid_time }}"
+    cache_valid_time: "{{ apt_cache_valid_time }}"
+  with_items: "{{ extra_gnu_linux_packages }}"
   become: yes
 
-- name: Install powerline-shell pip package for fancy PS1 prompt
-  pip:
-    name: powerline-shell
-    state: present
-  become: yes
+- name: Optionally install powerline-shell
+  include: powerline_shell.yml
+  when: install_powerline_shell
+  tags:
+    - powerline-shell
 
-- name: Copy powerline-shell config.json to ~/.config/powerline-shell/config.json
-  copy:
-    src: home/user/.config/powerline-shell/config.json
-    dest: "{{ ansible_env.HOME }}/.config/powerline-shell/config.json"
-
-- name: Copy .bash_profile to  ~/.bash_profile
-  copy:
-    src: home/user/.bash_profile
+- name: Template .bash_profile to  ~/.bash_profile
+  template:
+    src: home/user/.bash_profile.j2
     dest: "{{ ansible_env.HOME }}/.bash_profile"
 
 - name: Ensure ~/.local/share/applications/ directory
@@ -35,9 +31,9 @@
     dest: "{{ ansible_env.HOME }}/.local/share/applications"
     state: directory
 
-- name: Copy ".gitignore_global" to home directory
-  copy:
-    src: home/user/.gitignore_global
+- name: template ".gitignore_global" to home directory
+  template:
+    src: home/user/.gitignore_global.j2
     dest: "{{ ansible_env.HOME }}/.gitignore_global"
 
 - name: Set up user.name global git config entry
@@ -57,3 +53,18 @@
     name: core.excludesfile
     scope: global
     value: "{{ ansible_env.HOME }}/.gitignore_global"
+
+- name: Download rclone deb package
+  get_url:
+    url: https://downloads.rclone.org/rclone-current-linux-amd64.deb
+    dest: /var/cache/apt/archives/rclone.deb
+    checksum: sha256:acc72d39be7110a8c5e54fb18a78a7e7bd86316754056bd0a0e92df59d51b796
+  when: install_rclone
+  become: yes
+
+- name: Install rclone deb package
+  apt:
+    deb: /var/cache/apt/archives/rclone.deb
+    state: present
+  when: install_rclone
+  become: yes

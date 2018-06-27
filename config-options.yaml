@@ -1,0 +1,38 @@
+---
+
+#apt_cache_valid_time: 3600
+
+#git_user_name: "Your git user_name"
+#git_user_email: "Your git email address"
+
+#extra_gnu_linux_packages:
+#  - man
+#  - wget
+
+#install_powerline_shell: True
+#powerline_shell_config:
+#  segments:
+#    - virtual_env
+#    - username
+#    - hostname
+#    - ssh
+#    - cwd
+#    - git
+#    - root
+#  mode: flat
+#  cwd:
+#    mode: plain
+#  vcs:
+#    show_symbol: false
+#  theme: basic
+
+#gitignore_global_entries:
+#  - ".idea"
+#  - "*.retry"
+#  - "*.pyc"
+#  - "__pycache__"
+
+#install_rclone: True
+
+#install_atom: True
+#install_zeal: True

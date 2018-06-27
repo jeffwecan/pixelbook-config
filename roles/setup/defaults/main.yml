@@ -1,5 +1,35 @@
 ---
 
-cache_valid_time: 3600
-git_user_name: Jeffrey Hogan
-git_user_email: jeff.hogan1@gmail.com
+apt_cache_valid_time: 3600
+
+git_user_name: "{{ ansible_env.USER }}"
+git_user_email: "{{ ansible_env.USER }}@gmail.com"
+
+extra_gnu_linux_packages:
+  - man
+  - wget
+
+install_powerline_shell: True
+powerline_shell_config:
+  segments:
+    - virtual_env
+    - username
+    - hostname
+    - ssh
+    - cwd
+    - git
+    - root
+  mode: flat
+  cwd:
+    mode: plain
+  vcs:
+    show_symbol: false
+  theme: basic
+
+gitignore_global_entries:
+  - ".idea"
+  - "*.retry"
+  - "*.pyc"
+  - "__pycache__"
+
+install_rclone: True

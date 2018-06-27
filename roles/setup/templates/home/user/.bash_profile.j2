@@ -1,6 +1,7 @@
 ### ALIASES ###
 alias ll='ls -la'
 
+{% if install_powerline_shell %}
 ### Custom PS1 Prompt (powerline-shell) ###
 function _update_ps1() {
     PS1=$(powerline-shell $?)
@@ -9,3 +10,4 @@ function _update_ps1() {
 if [[ $TERM != linux && ! $PROMPT_COMMAND =~ _update_ps1 ]]; then
     PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
 fi
+{% endif %}

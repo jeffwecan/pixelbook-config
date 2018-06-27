@@ -1,0 +1,41 @@
+---
+- name: Install atom dependencies
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - gconf2
+    - gconf-service
+    - libnotify4
+    - libnss3
+    - python
+    - gvfs-bin
+    - libxkbfile1
+  become: yes
+
+- name: Add packagecloud / AtomEditor apt signing key
+  apt_key:
+    id: B75442BBDE9E3B09
+    url: https://packagecloud.io/AtomEditor/atom/gpgkey
+    state: present
+  become: yes
+
+- apt_repository:
+    repo: deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main
+    state: present
+    filename: packagecloud_atom_editor
+  register: ensure_atom_apt_repository
+  become: yes
+
+- name: Refresh apt cache after adding atom repository
+  apt:
+    update_cache: yes
+  when: ensure_atom_apt_repository.changed
+  become: yes
+
+- name: Install atom deb
+  apt:
+    name: atom
+    update_cache: yes
+    cache_valid_time: "{{ apt_cache_valid_time }}"
+  become: yes

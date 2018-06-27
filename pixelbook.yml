@@ -1,10 +1,13 @@
 ---
 
 - hosts: pixelbook
-  vars:
-    cache_valid_time: 3600
-    additional_packages:
-      - man
+  pre_tasks:
+    - name: Load user-provided configuration_variables
+      include_vars: "config-options.yaml"
+      no_log: true
+      check_mode: no
+      tags:
+        - always
   roles:
     - { name: setup, tags: role_setup }
     - { name: developer_tools, tags: role_developer_tools }

@@ -1,9 +1,0 @@
-[Desktop Entry]
-Version=13.0
-Type=Application
-Terminal=false
-Icon[eu_US]=/usr/share/icons/hicolor/128x128/apps/zeal.png
-Name[eu_us]=zeal
-Exec=/usr/bin/zeal
-Name=Zeal
-Icon=/usr/share/icons/hicolor/128x128/apps/zeal.png
