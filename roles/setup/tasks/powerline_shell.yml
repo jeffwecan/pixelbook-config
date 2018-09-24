@@ -13,5 +13,5 @@
 
 - name: Template powerline-shell config.json to ~/.config/powerline-shell/config.json
   template:
-    src: home/user/.config/powerline-shell/config.json.
+    src: "home/user/.config/powerline-shell/config.json.j2"
     dest: "{{ ansible_env.HOME }}/.config/powerline-shell/config.json"
