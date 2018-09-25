@@ -11,6 +11,9 @@ extra_gnu_linux_packages:
   - wget
   - xclip
 
+extra_pip_packages:
+  - virtualenvwrapper
+
 install_powerline_shell: True
 powerline_shell_config:
   segments:

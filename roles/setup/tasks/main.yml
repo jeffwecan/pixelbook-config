@@ -22,6 +22,11 @@
     - shell
     - powerline-shell
 
+- name: Include python-related tasks
+  include: python.yml
+  tags:
+    - python
+
 - name: Template .bash_profile to  ~/.bash_profile
   template:
     src: home/user/.bash_profile.j2
