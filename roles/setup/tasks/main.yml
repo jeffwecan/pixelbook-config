@@ -69,18 +69,3 @@
     name: core.excludesfile
     scope: global
     value: "{{ ansible_env.HOME }}/.gitignore_global"
-
-- name: Download rclone deb package
-  get_url:
-    url: https://downloads.rclone.org/rclone-current-linux-amd64.deb
-    dest: /var/cache/apt/archives/rclone.deb
-    checksum: sha256:acc72d39be7110a8c5e54fb18a78a7e7bd86316754056bd0a0e92df59d51b796
-  when: install_rclone
-  become: yes
-
-- name: Install rclone deb package
-  apt:
-    deb: /var/cache/apt/archives/rclone.deb
-    state: present
-  when: install_rclone
-  become: yes
