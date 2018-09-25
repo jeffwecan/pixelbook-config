@@ -1,6 +1,11 @@
 ### ALIASES ###
 alias ll='ls -la'
 
+{% if 'xclip' in extra_gnu_linux_packages %}
+alias pbcopy='xclip -selection clipboard'
+alias pbpaste='xclip -selection clipboard -o'
+{% endif %}
+
 {% if install_powerline_shell %}
 ### Custom PS1 Prompt (powerline-shell) ###
 function _update_ps1() {
