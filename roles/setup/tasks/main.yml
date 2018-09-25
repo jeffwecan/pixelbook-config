@@ -33,6 +33,7 @@
     dest: "{{ ansible_env.HOME }}/.bash_profile"
   tags:
     - shell
+    - config
 
 - name: Template .ssh/config to  ~/.ssh/config
   template:
