@@ -69,3 +69,20 @@
     name: core.excludesfile
     scope: global
     value: "{{ ansible_env.HOME }}/.gitignore_global"
+
+- name: Install screen
+  apt:
+    name: screen
+    update_cache: yes
+    cache_valid_time: "{{ apt_cache_valid_time }}"
+  become: yes
+  tags:
+    - screen
+
+- name: Template .screenrc to  ~/.screenrc
+  template:
+    src: home/user/.screenrc.j2
+    dest: "{{ ansible_env.HOME }}/.screenrc"
+  tags:
+    - config
+    - screen
