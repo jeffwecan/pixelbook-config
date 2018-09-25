@@ -19,12 +19,22 @@
   include: powerline_shell.yml
   when: install_powerline_shell
   tags:
+    - shell
     - powerline-shell
 
 - name: Template .bash_profile to  ~/.bash_profile
   template:
     src: home/user/.bash_profile.j2
     dest: "{{ ansible_env.HOME }}/.bash_profile"
+  tags:
+    - shell
+
+- name: Template .ssh/config to  ~/.ssh/config
+  template:
+    src: home/user/.ssh/config.j2
+    dest: "{{ ansible_env.HOME }}/.ssh/config"
+  tags:
+    - ssh
 
 - name: Ensure ~/.local/share/applications/ directory
   file:
