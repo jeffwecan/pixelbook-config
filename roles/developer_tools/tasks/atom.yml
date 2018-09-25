@@ -39,3 +39,9 @@
     update_cache: yes
     cache_valid_time: "{{ apt_cache_valid_time }}"
   become: yes
+
+  # TODO: install plugins (and maybe configure em)
+  # - wakatime (also prompt for API key from user if ~/.wakatime.cfg is not populated
+
+  # TODO: config as well:
+  # - turn on autosave
