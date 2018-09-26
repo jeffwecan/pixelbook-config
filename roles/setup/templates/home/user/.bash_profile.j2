@@ -23,3 +23,9 @@ if [[ $TERM != linux && ! $PROMPT_COMMAND =~ _update_ps1 ]]; then
     PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
 fi
 {% endif %}
+
+{# ssh-agent bits #}
+if [ -z "$SSH_AUTH_SOCK" ] ; then
+ eval `ssh-agent -s`
+ ssh-add
+fi
