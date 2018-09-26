@@ -26,6 +26,6 @@ fi
 
 {# ssh-agent bits #}
 if [ -z "$SSH_AUTH_SOCK" ] ; then
- eval `ssh-agent -s`
+ eval `ssh-agent -s` 1>/dev/null
  ssh-add
 fi
